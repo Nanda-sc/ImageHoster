@@ -41,7 +41,8 @@ public class Image {
     //One image can have only one user (owner) but one user can have multiple images
     //FetchType is EAGER
     @ManyToOne(fetch = FetchType.EAGER)
-    //Below annotation indicates that the name of the column in 'images' table referring the primary key in 'users' table will be 'user_id'
+    //Below annotation indicates that the name of the column in 'images' table referring the primary key in 'users'
+    // table will be 'user_id'
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -50,6 +51,15 @@ public class Image {
     //Since the mapping is Many to Many, a new table will be generated containing the two columns both referencing to the primary key of both the tables ('images', 'tags')
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Tag> tags = new ArrayList<>();
+
+    //The 'images' table is referenced by the 'comments' table
+    //The table (primary key) is referenced by the 'image' field in the 'comments' table
+    //cascade = CascadeType.REMOVE specifies that if a record in 'images' table is deleted,
+    // then all the records in 'comments' table associated to that particular record in 'image'
+    // table will be deleted first and then the record in the 'images' table will be deleted
+    //FetchType is LAZY
+    @OneToMany(mappedBy = "image", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
 
     public Image() {
     }
@@ -125,5 +135,13 @@ public class Image {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> images) {
+        this.comments = images;
     }
 }
