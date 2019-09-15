@@ -50,6 +50,7 @@ public class ImageController {
         Image image = imageService.getImageByTitle(title, imageId);
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
+        model.addAttribute("comments", image.getComments());
         return "images/image";
     }
 
@@ -109,6 +110,7 @@ public class ImageController {
             String error = "Only the owner of the image can edit the image";
             model.addAttribute("image", image);
             model.addAttribute("tags", image.getTags());
+            model.addAttribute("comments", image.getComments());
             model.addAttribute("editError",error);
             return "images/image";
         }
@@ -167,6 +169,7 @@ public class ImageController {
             model.addAttribute("image", image);
             model.addAttribute("tags", image.getTags());
             model.addAttribute("deleteError",error);
+            model.addAttribute("comments",image.getComments());
             return "images/image";
     }
 
