@@ -177,16 +177,11 @@ public class ImageController {
 
     }
 
-    //This method is called when the details of the specific image with corresponding title are to be displayed
-    //The logic is to get the image from the databse with corresponding title. After getting the image from the database the details are shown
-    //First receive the dynamic parameter in the incoming request URL in a string variable 'title' and also the Model type object
-    //Call the getImageByTitle() method in the business logic to fetch all the details of that image
-    //Add the image in the Model type object with 'image' as the key
-    //Return 'images/image.html' file
-
-    //Also now you need to add the tags of an image in the Model type object
-    //Here a list of tags is added in the Model type object
-    //this list is then sent to 'images/image.html' file and the tags are displayed
+    //This method is called when the comments for an image needs to be added
+    //The logic is to get the image from the databse with corresponding title and id. After getting the image
+    //from the database, it is added to the Comments object
+    //Call addComment which is in the service layer
+    //Redirected to 'images/image.html' file
     @RequestMapping(value = "/image/{imageId}/{imageTitle}/comments", method = RequestMethod.POST)
     public String addComment(@PathVariable("imageId") Integer imageId, @PathVariable("imageTitle") String imageTitle, @RequestParam("comment") String comment, Comment newComment, HttpSession session) throws IOException{
 
